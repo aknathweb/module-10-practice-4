@@ -35,7 +35,12 @@ app.get('/news/:id', (req, res) => {
 })
 app.get('/category/:id', (req, res) => {
     const category_news = allNews.filter(category_news => category_news.category_id === req.params.id);
-    res.send(category_news);
+    if (res.params.id === 8) {
+        res.send(allNews)
+    }
+    else {
+        res.send(category_news);
+    }
 })
 //here,me make my own api end
 
