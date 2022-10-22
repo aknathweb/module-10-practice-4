@@ -35,7 +35,8 @@ app.get('/news/:id', (req, res) => {
 })
 app.get('/category/:id', (req, res) => {
     const category_news = allNews.filter(category_news => category_news.category_id === req.params.id);
-    if (res.params.id === 8) {
+    if (req.params.id === '08') {
+        console.log(req.params.id)
         res.send(allNews)
     }
     else {
