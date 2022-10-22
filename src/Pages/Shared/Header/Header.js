@@ -1,19 +1,33 @@
 import React, { useContext } from 'react';
+import { Button, Image } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthcontextProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
 
 const Header = () => {
-    const { user } = useContext(AuthContext);
+
+    // user and logout information by using AuthContext Context Api start
+    const { user, logOut } = useContext(AuthContext);
+    // user and logout information by using AuthContext Context Api end
+
+    // logout operation perform using handleLogOut function start
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+    // logout operation perform using handleLogOut function end
+
     return (
         <div>
             <Navbar collapseOnSelect className='mb-4' expand="lg" bg="light" variant="light">
                 <Container>
-                    <Link to={'/'}><Navbar.Brand>News Today</Navbar.Brand></Link>
+                    <Navbar.Brand><Link to='/'>Dragon News</Link></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
@@ -32,9 +46,31 @@ const Header = () => {
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            <Nav.Link href="#deets">{user.name}</Nav.Link>
+                            <Nav.Link href="#deets">
+                                {
+                                    user?.uid ?
+                                        <>
+                                            <span>{user?.displayName}</span>
+                                            <Button variant="light" onClick={handleLogOut}>Log out</Button>
+                                        </>
+                                        :
+                                        <>
+                                            <Link to='/login'>Login</Link>
+                                            <Link to='/register'>Register</Link>
+                                        </>
+                                }
+
+
+                            </Nav.Link>
                             <Nav.Link eventKey={2} href="#memes">
-                                Dank memes
+                                {user?.photoURL ?
+                                    <Image
+                                        style={{ height: '30px' }}
+                                        roundedCircle
+                                        src={user?.photoURL}>
+                                    </Image>
+                                    : <FaUser></FaUser>
+                                }
                             </Nav.Link>
                         </Nav>
                         <div className='d-lg-none'>
