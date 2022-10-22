@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 const Category = () => {
     return (
         <div>
-            <h1>This is Category page</h1>
+            <h2>This is Category page:</h2>
         </div>
     );
 };
