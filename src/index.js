@@ -4,11 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthcontextProvider from './Context/AuthcontextProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/* 
+    App component use under the AuthcontextProvider
+    to give access use Context Api as AuthContext
+    */}
+    <AuthcontextProvider>
+      <App />
+    </AuthcontextProvider>
+
   </React.StrictMode>
 );
 
