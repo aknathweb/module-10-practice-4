@@ -56,11 +56,9 @@ const Header = () => {
                                         :
                                         <>
                                             <Link to='/login'>Login</Link>
-                                            <Link to='/register'>Register</Link>
+                                            <Link to='/signup'>Register</Link>
                                         </>
                                 }
-
-
                             </Nav.Link>
                             <Nav.Link eventKey={2} href="#memes">
                                 {user?.photoURL ?
