@@ -3,6 +3,7 @@ import Main from "../../Layout/Main";
 import Category from "../../Pages/Category/Category";
 import Home from "../../Pages/Home/Home";
 import News from "../../Pages/News/News";
+import DetailsNews from "../../Pages/Shared/DetailsNews/DetailsNews";
 
 export const routes = createBrowserRouter([
     {
@@ -11,15 +12,19 @@ export const routes = createBrowserRouter([
         children: ([
             {
                 path: '/',
+                loader: () => fetch('http://localhost:5000/news'),
                 element: <Home></Home>
             },
             {
                 path: '/category/:id',
-                element: <Category></Category>
+                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`),
+                element: <Category></Category>,
+                errorElement: <div><h1>Path not found</h1></div>
             },
             {
                 path: '/news/:id',
-                element: <News></News>
+                loader: ({ params }) => fetch(`http://localhost:5000/news/${params.id}`),
+                element: <DetailsNews></DetailsNews>
             }
         ])
     },
