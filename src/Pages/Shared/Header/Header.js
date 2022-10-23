@@ -27,7 +27,7 @@ const Header = () => {
         <div>
             <Navbar collapseOnSelect className='mb-4' expand="lg" bg="light" variant="light">
                 <Container>
-                    <Navbar.Brand><Link to='/'>Dragon News</Link></Navbar.Brand>
+                    <Navbar.Brand><Link to='/'>News Portal</Link></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
@@ -56,7 +56,7 @@ const Header = () => {
                                         :
                                         <>
                                             <Link to='/login'>Login</Link>
-                                            <Link to='/signup'>Register</Link>
+                                            <Link to='/signup'>SignUp</Link>
                                         </>
                                 }
                             </Nav.Link>

@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import Category from "../../Pages/Category/Category";
 import Home from "../../Pages/Home/Home";
-import LogIn from "../../Pages/LogInLogOut/LogIn/LogIn";
-import SignUp from "../../Pages/LogInLogOut/SignUp/SignUp";
+import LogIn from "../../Pages/LogInSignUp/LogIn/LogIn";
+import SignUp from "../../Pages/LogInSignUp/SignUp/SignUp";
 import DetailsNews from "../../Pages/Shared/DetailsNews/DetailsNews";
 
 export const routes = createBrowserRouter([
