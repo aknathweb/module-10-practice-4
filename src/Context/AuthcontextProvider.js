@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from '../firebase/firebase.init';
 
 // context api make as AuthContext
@@ -52,6 +52,13 @@ const AuthcontextProvider = ({ children }) => {
     }
     // Authenticate with Firebase using Password-Based Accounts end
 
+    // updateProfile firebase function use to set user name and image
+    const updateUserProfile = (profile) => {
+        return updateProfile(auth.currentUser, profile)
+    }
+
+
+
     /*  Check inside auth state change by side effect 
      and share auth or user information with all component to use
      start */
@@ -73,7 +80,7 @@ const AuthcontextProvider = ({ children }) => {
      end */
 
     //  send AuthInfo as a props of AuthContext to access all component
-    const AuthInfo = { user, providerLogin, createUser, signIn, logOut, loading };
+    const AuthInfo = { user, providerLogin, createUser, signIn, logOut, loading, updateUserProfile };
     return (
         <div>
             <AuthContext.Provider value={AuthInfo}>
