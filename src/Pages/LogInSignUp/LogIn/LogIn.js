@@ -23,11 +23,13 @@ const LogIn = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
+                // successfully login clear error message
                 setError('');
                 navigate('/')
             })
             .catch(error => {
                 console.error(error);
+                // for error set error message
                 setError(error.message);
             })
     }

@@ -25,11 +25,13 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                // successfully signUp clear error message
                 setError('')
                 form.reset();
             })
             .catch(e => {
                 console.error(e);
+                // for error set error message
                 setError(e.message);
             });
     }
