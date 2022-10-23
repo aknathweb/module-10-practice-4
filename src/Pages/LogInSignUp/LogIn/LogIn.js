@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthcontextProvider';
 
 const LogIn = () => {
+    // show error message
+    const [error, setError] = useState("");
     // user sign function use from AuthContext Context api
     const { signIn } = useContext(AuthContext);
     // useNavigate to create link
@@ -21,9 +23,13 @@ const LogIn = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
+                setError('');
                 navigate('/')
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                console.error(error);
+                setError(error.message);
+            })
     }
     // take login form information and perform login operation end
 
@@ -43,8 +49,9 @@ const LogIn = () => {
             <Button variant="primary" type="submit">
                 Login
             </Button>
+            <br />
             <Form.Text className="text-danger">
-
+                {error}
             </Form.Text>
         </Form>
     );

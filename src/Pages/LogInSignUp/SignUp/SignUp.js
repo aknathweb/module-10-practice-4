@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { AuthContext } from '../../../Context/AuthcontextProvider';
 
 const SignUp = () => {
+
+    // show error message
+    const [error, setError] = useState("");
+
     // user createUser function use from AuthContext Context api
     const { createUser } = useContext(AuthContext);
 
@@ -21,9 +25,13 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setError('')
                 form.reset();
             })
-            .catch(e => console.error(e));
+            .catch(e => {
+                console.error(e);
+                setError(e.message);
+            });
     }
     // take Sign Up form information and perform login operation end
 
@@ -51,8 +59,9 @@ const SignUp = () => {
             <Button variant="primary" type="submit">
                 Register
             </Button>
+            <br />
             <Form.Text className="text-danger">
-
+                {error}
             </Form.Text>
         </Form>
     );
