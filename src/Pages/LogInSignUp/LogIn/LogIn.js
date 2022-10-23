@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthcontextProvider';
 
 const LogIn = () => {
@@ -10,6 +10,11 @@ const LogIn = () => {
     const { signIn } = useContext(AuthContext);
     // useNavigate to create link
     const navigate = useNavigate();
+
+    // collect browser current location information
+    const location = useLocation();
+    // collect browser current location path and if no path found set '/' path
+    const from = location.state?.from?.pathname || '/';
 
     // take login form information and perform login operation start
     const handleSubmit = event => {
@@ -25,7 +30,9 @@ const LogIn = () => {
                 form.reset();
                 // successfully login clear error message
                 setError('');
-                navigate('/')
+                // set dynamic path base on location path information and replace condition set true
+                navigate(from, { replace: true });
+
             })
             .catch(error => {
                 console.error(error);
