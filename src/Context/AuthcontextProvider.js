@@ -17,6 +17,12 @@ const AuthcontextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     // check user State end
 
+    /* to catch auth/user information after browser refresh
+    because user information have been update from sideEffect 
+    so to resolved the sideEffect promise need some time
+    to handle sideEffect delay time, here I have used loader */
+    const [loading, setLoading] = useState(true);
+
 
     // 3rd party login operation perform start
     const providerLogin = (provider) => {
@@ -28,23 +34,33 @@ const AuthcontextProvider = ({ children }) => {
     // Authenticate with Firebase using Password-Based Accounts start
     // create new user, signIn and signOut operation perform
     const createUser = (email, password) => {
+        // for currentUser set sideEffect delay
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const signIn = (email, password) => {
+        // for currentUser set sideEffect delay
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
     const logOut = () => {
+        // for currentUser set sideEffect delay
+        setLoading(true);
         return signOut(auth);
     }
     // Authenticate with Firebase using Password-Based Accounts end
 
-    //Check inside auth state change by side effect start
+    /*  Check inside auth state change by side effect 
+     and share auth or user information with all component to use
+     start */
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log('inside auth state change', currentUser);
-            setUser(currentUser)
+            setUser(currentUser);
+            // after set the currentUser information, stop the loading by setLoading(false)
+            setLoading(false);
         });
 
         return () => {
@@ -52,9 +68,12 @@ const AuthcontextProvider = ({ children }) => {
         }
 
     }, [])
-    //Check inside auth state change by side effect end
+    /*  Check inside auth state change by side effect 
+     and share auth or user information with all component to use
+     end */
 
-    const AuthInfo = { user, providerLogin, createUser, signIn, logOut };
+    //  send AuthInfo as a props of AuthContext to access all component
+    const AuthInfo = { user, providerLogin, createUser, signIn, logOut, loading };
     return (
         <div>
             <AuthContext.Provider value={AuthInfo}>

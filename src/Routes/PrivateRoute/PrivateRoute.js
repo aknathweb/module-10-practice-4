@@ -3,9 +3,16 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthcontextProvider';
 
 const PrivateRoute = ({ children }) => {
-    const { user } = useContext(AuthContext);
     // location before entry PrivateRoute
     const currentLocation = useLocation();
+
+    const { user, loading } = useContext(AuthContext);
+
+    // check loading information to handle currentUser set time delay
+    if (loading) {
+        return (<h1>Waiting........</h1>);
+    }
+
 
     if (!user) {
         // Navigate time; set location state from currentLocation 
