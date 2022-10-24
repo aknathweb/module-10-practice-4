@@ -11,7 +11,7 @@ const SignUp = () => {
     const [error, setError] = useState("");
 
     // user createUser and updateProfile function use from AuthContext Context api
-    const { createUser, updateProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, verificationUserEmail } = useContext(AuthContext);
 
     // to set user name and photoURL make function
     const handleUpdateProfile = (name, photoURL) => {
@@ -19,7 +19,14 @@ const SignUp = () => {
             displayName: name,
             photoURL: photoURL
         }
-        updateProfile(profile)
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
+    // to verification user email
+    const handleEmailVerification = () => {
+        verificationUserEmail()
             .then(() => { })
             .catch(error => console.error(error))
     }
@@ -49,6 +56,8 @@ const SignUp = () => {
                 form.reset();
                 // to set user name and photoURL call function 
                 handleUpdateProfile(name, photoURL);
+                // to verification email
+                handleEmailVerification();
             })
             .catch(e => {
                 console.error(e);

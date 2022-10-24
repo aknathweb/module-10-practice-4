@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from '../firebase/firebase.init';
 
 // context api make as AuthContext
@@ -56,8 +56,10 @@ const AuthcontextProvider = ({ children }) => {
     const updateUserProfile = (profile) => {
         return updateProfile(auth.currentUser, profile)
     }
-
-
+    // sendEmailVerification firebase function use to verification user email
+    const verificationUserEmail = () => {
+        return sendEmailVerification(auth.currentUser);
+    }
 
     /*  Check inside auth state change by side effect 
      and share auth or user information with all component to use
@@ -80,7 +82,7 @@ const AuthcontextProvider = ({ children }) => {
      end */
 
     //  send AuthInfo as a props of AuthContext to access all component
-    const AuthInfo = { user, providerLogin, createUser, signIn, logOut, loading, updateUserProfile };
+    const AuthInfo = { user, providerLogin, createUser, signIn, logOut, loading, updateUserProfile, verificationUserEmail };
     return (
         <div>
             <AuthContext.Provider value={AuthInfo}>
