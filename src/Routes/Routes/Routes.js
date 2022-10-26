@@ -27,24 +27,29 @@ export const routes = createBrowserRouter([
             {
                 path: '/news/:id',
                 loader: ({ params }) => fetch(`http://localhost:5000/news/${params.id}`),
-                element: <PrivateRoute><DetailsNews></DetailsNews></PrivateRoute>
+                element: <PrivateRoute><DetailsNews></DetailsNews></PrivateRoute>,
+                errorElement: <div><h1>Path not found</h1></div>
             },
             {
                 path: '/login',
-                element: <LogIn></LogIn>
+                element: <LogIn></LogIn>,
+                errorElement: <div><h1>Path not found</h1></div>
             },
             {
                 path: '/signup',
-                element: <SignUp></SignUp>
+                element: <SignUp></SignUp>,
+                errorElement: <div><h1>Path not found</h1></div>
             },
             {
                 path: '/termsandconditions',
-                element: <TramsAndConditions></TramsAndConditions>
+                element: <TramsAndConditions></TramsAndConditions>,
+                errorElement: <div><h1>Path not found</h1></div>
+            },
+            {
+                path: '*',
+                element: <div><h1>Path not found</h1></div>
             }
         ])
     },
-    {
-        path: '*',
-        element: <div><h1>Path not found</h1></div>
-    }
+    
 ])
